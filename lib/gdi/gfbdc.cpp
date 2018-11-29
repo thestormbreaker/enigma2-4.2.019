@@ -15,9 +15,7 @@
 #include <lib/base/cfile.h>
 #endif
 
-#if defined(CONFIG_HISILICON_FB)
-#include <lib/gdi/grc.h>
-
+#ifdef CONFIG_ION
 extern void bcm_accel_blit(
 		int src_addr, int src_width, int src_height, int src_stride, int src_format,
 		int dst_addr, int dst_width, int dst_height, int dst_stride,
@@ -26,16 +24,13 @@ extern void bcm_accel_blit(
 		int pal_addr, int flags);
 #endif
 
-#ifdef HAVE_HISILICON_ACCEL
-extern void  dinobot_accel_register(void *p1,void *p2);
-extern void  dinibot_accel_notify(void);
-#endif
 gFBDC::gFBDC()
 {
 	fb=new fbClass;
-
+#ifndef CONFIG_ION
 	if (!fb->Available())
 		eFatal("[gFBDC] no framebuffer available");
+#endif
 
 	int xres;
 	int yres;
@@ -174,19 +169,29 @@ void gFBDC::exec(const gOpcode *o)
 #else
 		fb->blit();
 #endif
-#if defined(CONFIG_HISILICON_FB)
-		if(islocked()==0)
+#ifdef CONFIG_ION
+		if (surface_back.data_phys)
 		{
+			gUnmanagedSurface s(surface);
+			surface = surface_back;
+			surface_back = s;
+
+			fb->waitVSync();
+			if (surface.data_phys > surface_back.data_phys)
+			{
+				fb->setOffset(0);
+			}
+			else
+			{
+				fb->setOffset(surface_back.y);
+			}
 			bcm_accel_blit(
-				surface.data_phys, surface.x, surface.y, surface.stride, 0,
-				surface_back.data_phys, surface_back.x, surface_back.y, surface_back.stride,
+				surface_back.data_phys, surface_back.x, surface_back.y, surface_back.stride, 0,
+				surface.data_phys, surface.x, surface.y, surface.stride,
 				0, 0, surface.x, surface.y,
 				0, 0, surface.x, surface.y,
 				0, 0);
 		}
-#endif
-#ifdef HAVE_HISILICON_ACCEL
-		dinibot_accel_notify();
 #endif
 		break;
 	case gOpcode::sendShow:
@@ -254,9 +259,10 @@ void gFBDC::setResolution(int xres, int yres, int bpp)
 	if (m_pixmap && (surface.x == xres) && (surface.y == yres) && (surface.bpp == bpp))
 		return;
 
+#ifndef CONFIG_ION
 	if (gAccel::getInstance())
 		gAccel::getInstance()->releaseAccelMemorySpace();
-
+#endif
 	fb->SetMode(xres, yres, bpp);
 
 	surface.x = xres;
@@ -286,15 +292,15 @@ void gFBDC::setResolution(int xres, int yres, int bpp)
 		surface_back.data_phys = 0;
 	}
 
-	eDebug("[gFBDC] resolution: %dx%dx%d stride=%d, %dkB available for acceleration surfaces.",
-		 surface.x, surface.y, surface.bpp, fb->Stride(), (fb->Available() - fb_size)/1024);
+	eDebug("[gFBDC] resolution: %d x %d x %d (stride: %d) pages: %d", surface.x, surface.y, surface.bpp, fb->Stride(), fb->getNumPages());
 
+#ifndef CONFIG_ION
+	/* accel is already set in fb.cpp */
+	eDebug("[gFBDC] %dkB available for acceleration surfaces.", (fb->Available() - fb_size)/1024);
 	if (gAccel::getInstance())
 		gAccel::getInstance()->setAccelMemorySpace(fb->lfb + fb_size, surface.data_phys + fb_size, fb->Available() - fb_size);
-
-#ifdef HAVE_HISILICON_ACCEL
-	dinobot_accel_register(&surface,&surface_back);
 #endif
+
 	if (!surface.clut.data)
 	{
 		surface.clut.colors = 256;
@@ -303,15 +309,6 @@ void gFBDC::setResolution(int xres, int yres, int bpp)
 	}
 
 	surface_back.clut = surface.clut;
-
-#if defined(CONFIG_HISILICON_FB)
-	if(islocked()==0)
-	{
-		gUnmanagedSurface s(surface);
-		surface = surface_back;
-		surface_back = s;
-	}
-#endif
 
 	m_pixmap = new gPixmap(&surface);
 }
