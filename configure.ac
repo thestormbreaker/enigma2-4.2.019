@@ -58,14 +58,85 @@ AC_ARG_WITH(boxtype,
 AC_SUBST(BOXTYPE)
 AC_DEFINE_UNQUOTED(BOXTYPE,"$BOXTYPE",[box type])
 
+AM_CONDITIONAL(AZBOX, test `echo "$BOXTYPE" | cut -b 1-5` == "azbox")
+AM_CONDITIONAL(CUBE, test `echo "$BOXTYPE" | cut -b 1-4` == "cube")
+AM_CONDITIONAL(DAGS, test `echo "$BOXTYPE" | cut -b 1-4` == "dags")
 AM_CONDITIONAL(DREAMBOX, test `echo "$BOXTYPE" | cut -b 1-2` == "dm")
 AM_CONDITIONAL(VUPLUS, test `echo "$BOXTYPE" | cut -b 1-2` == "vu")
+AM_CONDITIONAL(XTREND, test `echo "$BOXTYPE" | cut -b 1-2` == "et")
+AM_CONDITIONAL(INI, test `echo "$BOXTYPE" | cut -b 1-3` == "ini")
 AM_CONDITIONAL(GIGABLUE, test `echo "$BOXTYPE" | cut -b 1-2` == "gb")
-AM_CONDITIONAL(DM520, test "$BOXTYPE" == dm520)
-AM_CONDITIONAL(DM7080, test "$BOXTYPE" == dm7080)
-AM_CONDITIONAL(DM820, test "$BOXTYPE" == dm820)
+AM_CONDITIONAL(ODIN, test `echo "$BOXTYPE" | cut -b 1-4` == "odin")
+AM_CONDITIONAL(EBOX, test `echo "$BOXTYPE" | cut -b 1-4` == "ebox")
+AM_CONDITIONAL(IXUSS, test `echo "$BOXTYPE" | cut -b 1-4` == "ixus")
+AM_CONDITIONAL(SPARK, test `echo "$BOXTYPE" | cut -b 1-5` == "spark")
+AM_CONDITIONAL(WETEK, test `echo "$BOXTYPE" | cut -b 1-5` == "wetek")
+
+AM_CONDITIONAL(AZBOXHD, test "$BOXTYPE" == "azboxhd")
+AM_CONDITIONAL(AZBOXME, test "$BOXTYPE" == "azboxme")
+AM_CONDITIONAL(AZBOXMINIME, test "$BOXTYPE" == "azboxminime")
+AM_CONDITIONAL(BLACKBOX7405, test "$BOXTYPE" == "blackbox7405")
+AM_CONDITIONAL(CUBE, test "$BOXTYPE" == "cube")
+AM_CONDITIONAL(DAGS1, test "$BOXTYPE" == "dags1")
+AM_CONDITIONAL(DAGS2, test "$BOXTYPE" == "dags2")
+AM_CONDITIONAL(DAGS3, test "$BOXTYPE" == "dags3")
+AM_CONDITIONAL(DAGS4, test "$BOXTYPE" == "dags4")
+AM_CONDITIONAL(DAGS5, test "$BOXTYPE" == "dags5")
+AM_CONDITIONAL(DAGS6, test "$BOXTYPE" == "dags6")
+AM_CONDITIONAL(DM520, test "$BOXTYPE" == "dm520")
+AM_CONDITIONAL(DM7080, test "$BOXTYPE" == "dm7080")
+AM_CONDITIONAL(DM820, test "$BOXTYPE" == "dm820")
+AM_CONDITIONAL(DM8000, test "$BOXTYPE" == "dm8000")
 AM_CONDITIONAL(DM8000, test "$BOXTYPE" == dm8000)
 AM_CONDITIONAL(DM900, test "$BOXTYPE" == dm900)
+AM_CONDITIONAL(E3HD, test "$BOXTYPE" == "e3hd")
+AM_CONDITIONAL(EBOX5000, test "$BOXTYPE" == "ebox5000")
+AM_CONDITIONAL(EBOX5100, test "$BOXTYPE" == "ebox5100")
+AM_CONDITIONAL(EBOX7358, test "$BOXTYPE" == "ebox7358")
+AM_CONDITIONAL(EBOXLUMI, test "$BOXTYPE" == "eboxlumi")
+AM_CONDITIONAL(ET4X00, test "$BOXTYPE" == "et4x00")
+AM_CONDITIONAL(ET5X00, test "$BOXTYPE" == "et5x00")
+AM_CONDITIONAL(ET6X00, test "$BOXTYPE" == "et6x00")
+AM_CONDITIONAL(ET9X00, test "$BOXTYPE" == "et9x00")
+AM_CONDITIONAL(ET8000, test "$BOXTYPE" == "et8000")
+AM_CONDITIONAL(ET10000, test "$BOXTYPE" == "et10000")
+AM_CONDITIONAL(VG2000, test `echo "$BOXTYPE"` == "vg2000")
+AM_CONDITIONAL(VG5000, test `echo "$BOXTYPE"` == "vg5000")
+AM_CONDITIONAL(EW7358, test `echo "$BOXTYPE"` == "ew7358")
+AM_CONDITIONAL(EW7362, test `echo "$BOXTYPE"` == "ew7362")
+AM_CONDITIONAL(EW7356, test `echo "$BOXTYPE"` == "ew7356")
+AM_CONDITIONAL(FORMULER1, test "$BOXTYPE" == formuler1)
+AM_CONDITIONAL(FORMULER3, test "$BOXTYPE" == formuler3)
+AM_CONDITIONAL(GB800SOLO, test "$BOXTYPE" == "gb800solo")
+AM_CONDITIONAL(GB800SE, test "$BOXTYPE" == "gb800se")
+AM_CONDITIONAL(GB800UE, test "$BOXTYPE" == "gb800ue")
+AM_CONDITIONAL(GB800SEPLUS, test "$BOXTYPE" == "gb800seplus")
+AM_CONDITIONAL(GB800UEPLUS, test "$BOXTYPE" == "gb800ueplus")
+AM_CONDITIONAL(GBQUADPLUS, test "$BOXTYPE" == "gbquadplus")
+AM_CONDITIONAL(GBQUAD, test "$BOXTYPE" == "gbquad")
+AM_CONDITIONAL(GBIPBOX, test "$BOXTYPE" == "gbipbox")
+AM_CONDITIONAL(INIHDE, test "$BOXTYPE" == "inihde")
+AM_CONDITIONAL(INIHDE2, test `echo "$BOXTYPE" | cut -b 1-7` == inihde2)
+AM_CONDITIONAL(INIHDP, test "$BOXTYPE" == "inihdp")
+AM_CONDITIONAL(INIHDX, test "$BOXTYPE" == "inihdx")
+AM_CONDITIONAL(IXUSSZERO, test "$BOXTYPE" == "ixusszero")
+AM_CONDITIONAL(IXUSSONE, test "$BOXTYPE" == "ixussone")
+AM_CONDITIONAL(HD2400, test "$BOXTYPE" == "hd2400")
+AM_CONDITIONAL(HD1200, test "$BOXTYPE" == "hd1200")
+AM_CONDITIONAL(HD1100, test "$BOXTYPE" == "hd1100")
+AM_CONDITIONAL(HD500C, test "$BOXTYPE" == "hd500c")
+AM_CONDITIONAL(ODINM6, test "$BOXTYPE" == odinm6)
+AM_CONDITIONAL(ODINM7, test "$BOXTYPE" == odinm7)
+AM_CONDITIONAL(ODINM7S, test "$BOXTYPE" == odinm7s)
+AM_CONDITIONAL(ODINM7C, test "$BOXTYPE" == odinm7c)
+AM_CONDITIONAL(ODINM9, test "$BOXTYPE" == odinm9)
+AM_CONDITIONAL(TMTWINOE, test "$BOXTYPE" == tmtwin)
+AM_CONDITIONAL(TM2TOE, test "$BOXTYPE" == tm2t)
+AM_CONDITIONAL(TMSINGLE, test "$BOXTYPE" == tmsingle)
+AM_CONDITIONAL(TMNANO, test "$BOXTYPE" == tmnano)
+AM_CONDITIONAL(TMNANO2T, test "$BOXTYPE" == tmnano2t)
+AM_CONDITIONAL(TMNANOSE, test "$BOXTYPE" == tmnanose)
+AM_CONDITIONAL(VP7358CI, test "$BOXTYPE" == "vp7358ci")
 AM_CONDITIONAL(VUUNO, test "$BOXTYPE" == vuuno)
 AM_CONDITIONAL(VUULTIMO, test "$BOXTYPE" == vuultimo)
 AM_CONDITIONAL(VUSOLO, test "$BOXTYPE" == vusolo)
@@ -74,68 +145,20 @@ AM_CONDITIONAL(VUSOLO4K, test "$BOXTYPE" == vusolo4k)
 AM_CONDITIONAL(VUUNO4K, test "$BOXTYPE" == vuuno4k)
 AM_CONDITIONAL(VUUNO4KSE, test "$BOXTYPE" == vuuno4kse)
 AM_CONDITIONAL(VUULTIMO4K, test "$BOXTYPE" == vuultimo4k)
-AM_CONDITIONAL(VUDUO4K, test "$BOXTYPE" == vuduo4k)
 AM_CONDITIONAL(VUSOLOSE, test "$BOXTYPE" == vusolose)
 AM_CONDITIONAL(VUDUO, test "$BOXTYPE" == vuduo)
 AM_CONDITIONAL(VUSOLO2, test "$BOXTYPE" == vusolo2)
 AM_CONDITIONAL(VUDUO2, test "$BOXTYPE" == vuduo2)
 AM_CONDITIONAL(VUZERO, test "$BOXTYPE" == vuzero)
-AM_CONDITIONAL(GB800SOLO, test "$BOXTYPE" == gb800solo)
-AM_CONDITIONAL(GB800SE, test "$BOXTYPE" == gb800se)
-AM_CONDITIONAL(GB800UE, test "$BOXTYPE" == gb800ue)
-AM_CONDITIONAL(GB800SEPLUS, test "$BOXTYPE" == gb800seplus)
-AM_CONDITIONAL(GB800UEPLUS, test "$BOXTYPE" == gb800ueplus)
-AM_CONDITIONAL(GBQUADPLUS, test "$BOXTYPE" == gbquadplus)
-AM_CONDITIONAL(GBQUAD, test "$BOXTYPE" == gbquad)
-AM_CONDITIONAL(GBIPBOX, test "$BOXTYPE" == gbipbox)
+AM_CONDITIONAL(XP1000, test "$BOXTYPE" == xp1000)
+AM_CONDITIONAL(SH1, test `echo "$BOXTYPE"` == "sh1")
+AM_CONDITIONAL(SH2, test `echo "$BOXTYPE"` == "sh2")
+AM_CONDITIONAL(SPARK, test `echo "$BOXTYPE" | cut -b 1-5` == spark)
+AM_CONDITIONAL(XC7362, test "$BOXTYPE" == xc7362)
+AM_CONDITIONAL(XC7358, test "$BOXTYPE" == xc7358)
+AM_CONDITIONAL(XC7358CI, test "$BOXTYPE" == xc7358ci)
 AM_CONDITIONAL(HAVE_COLORLCD2, test "$BOXTYPE" == dm820)
 AM_CONDITIONAL(HAVE_COLORLCD3, test "$BOXTYPE" == dm7080)
-
-AC_ARG_WITH(accelerationthreshold,
-	AC_HELP_STRING([--with-accelerationthreshold=n], [use acceleration threshold of n bytes]),
-	[[with_accelerationthreshold=$withval]],
-	[[with_accelerationthreshold=48000]]
-)
-
-AC_DEFINE_UNQUOTED(GFX_SURFACE_ACCELERATION_THRESHOLD, $with_accelerationthreshold,[Configure threshold for accelerated surfaces (in bytes)])
-
-AC_ARG_WITH(fillaccelerationthreshold,
-	AC_HELP_STRING([--with-fillaccelerationthreshold=n], [use fill acceleration threshold of n bytes]),
-	[[with_fillaccelerationthreshold=$withval]],
-	[[with_fillaccelerationthreshold=80000]]
-)
-
-AC_DEFINE_UNQUOTED(GFX_SURFACE_FILL_ACCELERATION_THRESHOLD, $with_fillaccelerationthreshold,[Configure threshold for accelerated fill operations (in bytes)])
-
-AC_ARG_WITH(blitaccelerationthreshold,
-	AC_HELP_STRING([--with-blitaccelerationthreshold=n], [use blit acceleration threshold of n bytes]),
-	[[with_blitaccelerationthreshold=$withval]],
-	[[with_blitaccelerationthreshold=0]]
-)
-
-AC_DEFINE_UNQUOTED(GFX_SURFACE_BLIT_ACCELERATION_THRESHOLD, $with_blitaccelerationthreshold,[Configure threshold for accelerated blit operations (in bytes)])
-
-AC_ARG_WITH(alphablendingacceleration,
-	AC_HELP_STRING([--with-alphablendingacceleration=never/always/auto], [alphablending acceleration strategy: never accelerate / always accelerate / automatically decide when to accelerate (default)]),
-	[[with_alphablendingacceleration=$withval]],
-	[[with_alphablendingacceleration=auto]]
-)
-
-if test x"$with_alphablendingacceleration" = xnever ; then
-	AC_DEFINE_UNQUOTED(FORCE_NO_BLENDING_ACCELERATION, 1, [Do not attempt to accelerate alphablending blits])
-elif test x"$with_alphablendingacceleration" = xalways ; then
-	AC_DEFINE_UNQUOTED(FORCE_ALPHABLENDING_ACCELERATION, 1, [Accelerate alphablending blits])
-fi
-
-AC_ARG_WITH(accelerationaccumulation,
-	AC_HELP_STRING([--with-accelerationaccumulation], [accumulate blit/fill acceleration operations]),
-	[[with_accelerationaccumulation=$withval]],
-	[[with_accelerationaccumulation=no]]
-)
-
-if test x"$with_accelerationaccumulation" = xyes ; then
-	AC_DEFINE(SUPPORT_ACCUMULATED_ACCELERATION_OPERATIONS, 1,[Accumulate blit/fill acceleration operations])
-fi
 
 AC_ARG_WITH(libvugles2,
 	AS_HELP_STRING([--with-libvugles2],[use libvugles2, yes or no]),
@@ -145,18 +168,6 @@ if test "$with_libvugles2" = "yes"; then
 	GLES_CFLAGS="-DUSE_LIBVUGLES2"
 fi
 AM_CONDITIONAL(HAVE_LIBVUGLES2, test "$with_libvugles2" = "yes")
-
-AC_ARG_WITH(libhiaccel,
-	AS_HELP_STRING([--with-libhiaccel],[use libhiaccel, yes or no]),
-	[with_libhiaccel=$withval],[with_libhiaccel=no])
-if test "$with_libhiaccel" = "yes"; then
-	PKG_CHECK_MODULES(LIBHIACCEL, [libhiaccel])
-	HIACCEL_CFLAGS="-DUSE_LIBHIACCEL"
-fi
-
-if test x"$with_libhiaccel" != xno ; then
-	AC_DEFINE(HAVE_HISILICON_ACCEL, 1,[define add HISILICON ACCEL])
-fi
 
 AC_ARG_WITH(osdanimation,
 	AC_HELP_STRING([--with-osdanimation], [use osd animation, yes or no]),
@@ -188,16 +199,6 @@ if test x"$withtextlcd" != xno ; then
 	AC_DEFINE(HAVE_TEXTLCD, 1,[Define when using an ascii based lcd device])
 fi
 AM_CONDITIONAL(HAVE_TEXTLCD, test x"$withtextlcd" != xno)
-
-AC_ARG_WITH(7segment,
-	AC_HELP_STRING([--with-7segment], [use ascii based lcd, yes or no]),
-	[[with7segment=$withval]],
-	[[with7segment=no]]
-)
-if test x"$with7segment" != xno ; then
-	AC_DEFINE(HAVE_7SEGMENT, 1,[Define when using an ascii based lcd device])
-fi
-AM_CONDITIONAL(HAVE_7SEGMENT, test x"$with7segment" != xno)
 
 AC_ARG_WITH(colorlcd,
 	AC_HELP_STRING([--with-colorlcd], [use 96x64 16bpp color display, yes or no]),
@@ -553,7 +554,6 @@ data/Makefile
 data/fonts/Makefile
 data/keymaps/Makefile
 data/displaytext/Makefile
-data/7segment/Makefile
 data/display96/Makefile
 data/display128/Makefile
 data/display128dm/Makefile
@@ -611,8 +611,6 @@ lib/python/Plugins/SystemPlugins/DefaultServicesScanner/meta/Makefile
 lib/python/Plugins/SystemPlugins/DiseqcTester/Makefile
 lib/python/Plugins/SystemPlugins/DiseqcTester/meta/Makefile
 lib/python/Plugins/SystemPlugins/FastScan/Makefile
-lib/python/Plugins/SystemPlugins/FrontprocessorUpgrade/Makefile
-lib/python/Plugins/SystemPlugins/FrontprocessorUpgrade/meta/Makefile
 lib/python/Plugins/SystemPlugins/FSBLUpdater/Makefile
 lib/python/Plugins/SystemPlugins/HdmiCEC/Makefile
 lib/python/Plugins/SystemPlugins/Hotplug/Makefile
