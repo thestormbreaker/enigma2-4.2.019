@@ -70,7 +70,6 @@ class Rc:
 		if self.isDefaultRc:
 			rc = self.rcs[config.misc.rcused.value]
 		else:
-		     try:
 			rc = self.rcs[2]
 		if key in rc:
 			rcpos = self["rc"].getPosition()
