@@ -1,6 +1,5 @@
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Screens.Wizard import wizardManager, WizardSummar
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Rc import Rc
 from Components.Pixmap import Pixmap, MovingPixmap, MultiPixmap
