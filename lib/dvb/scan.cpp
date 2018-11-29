@@ -741,7 +741,7 @@ int eDVBScan::sameChannel(iDVBFrontendParameters *ch1, iDVBFrontendParameters *c
 	int diff;
 	if (ch1->calculateDifference(ch2, diff, exact))
 		return 0;
-	if (diff < 2000) // more than 2mhz difference?
+	if (diff < 4000) // more than 4mhz difference?
 		return 1;
 	return 0;
 }
