@@ -1,4 +1,4 @@
-from boxbranding import getBoxType
+from boxbranding import getBoxType, getBrandOEM
 from Components.About import about
 
 class HardwareInfo:
