@@ -15,8 +15,6 @@ class HardwareInfo:
 			file = open("/proc/stb/info/model", "r")
 			HardwareInfo.device_name = file.readline().strip()
 			file.close()
-				if getBrandOEM() == "dags":
-				HardwareInfo.device_name = "dm800se"
 			try:
 				file = open("/proc/stb/info/version", "r")
 				HardwareInfo.device_version = file.readline().strip()
