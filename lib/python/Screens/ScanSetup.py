@@ -128,7 +128,6 @@ terrestrial_autoscan_nimtype = {
 'TT3L10' : 'tt3l10_t2_scan',
 'TURBO' : 'vuplus_turbo_t',
 'TT2L08' : 'tt2l08_t2_scan',
-'BCM3466' : 'bcm3466'
 }
 
 def GetDeviceId(filter, nim_idx):
@@ -207,7 +206,8 @@ class CableTransponderSearchSupport:
 						"QAM32" : parm.Modulation_QAM32,
 						"QAM64" : parm.Modulation_QAM64,
 						"QAM128" : parm.Modulation_QAM128,
-						"QAM256" : parm.Modulation_QAM256 }
+						"QAM256" : parm.Modulation_QAM256,
+						"QAM_AUTO" : parm.Modulation_Auto }
 					inv = { "INVERSION_OFF" : parm.Inversion_Off,
 						"INVERSION_ON" : parm.Inversion_On,
 						"INVERSION_AUTO" : parm.Inversion_Unknown }
@@ -353,24 +353,31 @@ class CableTransponderSearchSupport:
 		else:
 			cmd += " --scan-stepsize "
 			cmd += str(cableConfig.scan_frequency_steps.value)
-		if cableConfig.scan_mod_qam16.value:
-			cmd += " --mod 16"
-		if cableConfig.scan_mod_qam32.value:
-			cmd += " --mod 32"
-		if cableConfig.scan_mod_qam64.value:
-			cmd += " --mod 64"
-		if cableConfig.scan_mod_qam128.value:
-			cmd += " --mod 128"
-		if cableConfig.scan_mod_qam256.value:
-			cmd += " --mod 256"
-		if cableConfig.scan_sr_6900.value:
-			cmd += " --sr 6900000"
-		if cableConfig.scan_sr_6875.value:
-			cmd += " --sr 6875000"
-		if cableConfig.scan_sr_ext1.value > 450:
-			cmd += " --sr "
-			cmd += str(cableConfig.scan_sr_ext1.value)
-			cmd += "000"
+		if cmd.startswith("atbm781x"):
+			cmd += " --timeout 800"
+		else:
+			if cableConfig.scan_mod_qam16.value:
+				cmd += " --mod 16"
+			if cableConfig.scan_mod_qam32.value:
+				cmd += " --mod 32"
+			if cableConfig.scan_mod_qam64.value:
+				cmd += " --mod 64"
+			if cableConfig.scan_mod_qam128.value:
+				cmd += " --mod 128"
+			if cableConfig.scan_mod_qam256.value:
+				cmd += " --mod 256"
+			if cableConfig.scan_sr_6900.value:
+				cmd += " --sr 6900000"
+			if cableConfig.scan_sr_6875.value:
+				cmd += " --sr 6875000"
+			if cableConfig.scan_sr_ext1.value > 450:
+				cmd += " --sr "
+				cmd += str(cableConfig.scan_sr_ext1.value)
+				cmd += "000"
+			if cableConfig.scan_sr_ext2.value > 450:
+				cmd += " --sr "
+				cmd += str(cableConfig.scan_sr_ext2.value)
+				cmd += "000"
 		if cableConfig.scan_sr_ext2.value > 450:
 			cmd += " --sr "
 			cmd += str(cableConfig.scan_sr_ext2.value)
@@ -1571,13 +1578,10 @@ class ScanSetup(ConfigListScreen, Screen, CableTransponderSearchSupport, Terrest
 		if tp[3] in range (4) and tp[4] in range (11):
 			pol_list = ['H','V','L','R']
 			fec_list = ['Auto','1/2','2/3','3/4','5/6','7/8','8/9','3/5','4/5','9/10','None']
-			tp_text = str(tp[1] / 1000) + " " + pol_list[tp[3]] + " " + str(tp[2] / 1000) + " " + fec_list[tp[4]]
-			if tp[5] == eDVBFrontendParametersSatellite.System_DVB_S2:
-				if tp[10] > eDVBFrontendParametersSatellite.No_Stream_Id_Filter:
-					tp_text = ("%s MIS %d") % (tp_text, tp[10])
-				if tp[12] > 0:
-					tp_text = ("%s Gold %d") % (tp_text, tp[12])
-			return tp_text
+			stream = ''
+			if tp[10] > -1 and tp[5] == eDVBFrontendParametersSatellite.System_DVB_S2: # not default input stream id
+				stream = _(" Stream %s") % str(tp[10])
+			return str(tp[1] / 1000) + " " + pol_list[tp[3]] + " " + str(tp[2] / 1000) + " " + fec_list[tp[4]] + stream
 		return _("Invalid transponder data")
 
 	def compareTransponders(self, tp, compare):
