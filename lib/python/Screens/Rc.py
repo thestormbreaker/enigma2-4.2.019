@@ -3,7 +3,6 @@ from Tools.Directories import resolveFilename, SCOPE_SKIN
 from xml.etree.ElementTree import ElementTree
 from Components.config import config, ConfigInteger
 from Components.RcModel import rc_model
-from boxbranding import getBoxType
 
 config.misc.rcused = ConfigInteger(default = 1)
 
@@ -29,13 +28,10 @@ class Rc:
 		self.onShown.append(self.initRc)
 
 	def initRc(self):
-		if getBoxType() in ('uniboxhd1', 'uniboxhd2', 'uniboxhd3', 'sezam5000hd', 'mbtwin', 'beyonwizt3'):
- 			self["rc"].setPixmapNum(config.misc.rcused.value)
- 		else:
-			if self.isDefaultRc:
-				self["rc"].setPixmapNum(config.misc.rcused.value)
-			else:
-				self["rc"].setPixmapNum(0)
+		if self.isDefaultRc:
+			self["rc"].setPixmapNum(config.misc.rcused.value)
+		else:
+			self["rc"].setPixmapNum(0)
 
 	def readPositions(self):
 		if self.isDefaultRc:
