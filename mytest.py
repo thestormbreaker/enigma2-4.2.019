@@ -24,9 +24,6 @@ import eBaseImpl
 enigma.eTimer = eBaseImpl.eTimer
 enigma.eSocketNotifier = eBaseImpl.eSocketNotifier
 enigma.eConsoleAppContainer = eConsoleImpl.eConsoleAppContainer
-boxtype = getBoxType()
-if os.path.isfile("/usr/lib/enigma2/python/Plugins/Extensions/MediaPortal/plugin.pyo") and boxtype in ('dm7080','dm820'):
-	import pyo_patcher
 
 from traceback import print_exc
 
@@ -480,21 +477,6 @@ from Components.VolumeControl import VolumeControl
 
 from time import time, localtime, strftime
 from Tools.StbHardware import setFPWakeuptime, setRTCtime
-
-def autorestoreLoop():
-	# Check if auto restore settings fails, just start the wizard (avoid a endless loop) 
-	count = 0
-	if os.path.exists("/media/hdd/images/config/autorestore"):
-		f = open("/media/hdd/images/config/autorestore", "r")
-		count = int(f.read())
-		f.close()
-		if count >= 3:
-			return False
-	count += 1
-	f = open("/media/hdd/images/config/autorestore", "w")
-	f.write(str(count))
-	f.close()
-	return True		
 
 def runScreenTest():
 	config.misc.startCounter.value += 1
