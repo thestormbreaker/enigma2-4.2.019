@@ -1,4 +1,4 @@
-from boxbranding import getBoxType, getDisplayType
+from boxbranding import getBoxType
 from sys import maxint
 
 from twisted.internet import threads
@@ -349,7 +349,10 @@ def InitLcd():
 			config.lcd.contrast.addNotifier(setLCDcontrast)
 		else:
 			config.lcd.contrast = ConfigNothing()
-			standby_default = 1
+			if getBoxType() in ('dm900'):
+				standby_default = 4
+			else:
+				standby_default = 1
 
 		config.lcd.standby = ConfigSlider(default=standby_default, limits=(0, 10))
 		config.lcd.standby.addNotifier(setLCDbright)
@@ -427,20 +430,20 @@ def InitLcd():
 			config.lcd.minitvpipmode = ConfigNothing()
 			config.lcd.minitvfps = ConfigNothing()
 
-		if SystemInfo["VFD_scroll_repeats"] and getDisplayType() not in ('7segment'):
+		if SystemInfo["VFD_scroll_repeats"]:
 			def scroll_repeats(el):
 				open(SystemInfo["VFD_scroll_repeats"], "w").write(el.value)
 			choicelist = [("0", _("None")), ("1", _("1X")), ("2", _("2X")), ("3", _("3X")), ("4", _("4X")), ("500", _("Continues"))]
 			config.usage.vfd_scroll_repeats = ConfigSelection(default = "3", choices = choicelist)
 			config.usage.vfd_scroll_repeats.addNotifier(scroll_repeats, immediate_feedback = False)
 
-		if SystemInfo["VFD_scroll_delay"] and getDisplayType() not in ('7segment'):
+		if SystemInfo["VFD_scroll_delay"]:
 			def scroll_delay(el):
 				open(SystemInfo["VFD_scroll_delay"], "w").write(str(el.value))
 			config.usage.vfd_scroll_delay = ConfigSlider(default = 150, increment = 10, limits = (0, 500))
 			config.usage.vfd_scroll_delay.addNotifier(scroll_delay, immediate_feedback = False)
 
-		if SystemInfo["VFD_initial_scroll_delay"] and getDisplayType() not in ('7segment'):
+		if SystemInfo["VFD_initial_scroll_delay"]:
 			def initial_scroll_delay(el):
 				open(SystemInfo["VFD_initial_scroll_delay"], "w").write(el.value)
 			choicelist = [
@@ -451,7 +454,7 @@ def InitLcd():
 			config.usage.vfd_initial_scroll_delay = ConfigSelection(default = "1000", choices = choicelist)
 			config.usage.vfd_initial_scroll_delay.addNotifier(initial_scroll_delay, immediate_feedback = False)
 
-		if SystemInfo["VFD_final_scroll_delay"] and getDisplayType() not in ('7segment'):
+		if SystemInfo["VFD_final_scroll_delay"]:
 			def final_scroll_delay(el):
 				open(SystemInfo["VFD_final_scroll_delay"], "w").write(el.value)
 			choicelist = [
