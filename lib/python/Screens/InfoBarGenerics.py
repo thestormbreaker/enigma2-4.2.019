@@ -142,6 +142,12 @@ def updateresumePointCache():
 resumePointCache = loadResumePoints()
 resumePointCacheLast = int(time())
 
+whitelist_vbi = None
+def reload_whitelist_vbi():
+	global whitelist_vbi
+	whitelist_vbi = [line.strip() for line in open('/etc/enigma2/whitelist_vbi', 'r').readlines()] if os.path.isfile('/etc/enigma2/whitelist_vbi') else []
+reload_whitelist_vbi()
+
 class InfoBarDish:
 	def __init__(self):
 		self.dishDialog = self.session.instantiateDialog(Dish)
@@ -175,8 +181,10 @@ class InfoBarUnhandledKey:
 
 	#this function is called on every keypress!
 	def actionA(self, key, flag):
+		mkey = "unset"
 		try:
-			print '[InfoBarGenerics] KEY: %s %s' % (key,getKeyDescription(key)[0])
+			mkey = getKeyDescription(key)[0]
+			print '[InfoBarGenerics] KEY: %s %s' % (key,mkey)
 		except:
 			print '[InfoBarGenerics] KEY: %s' % key
 		self.unhandledKeyDialog.hide()
@@ -4231,24 +4239,6 @@ class InfoBarHdmi:
 			self.session.pip.show()
 			self.session.pipshown = True
 			self.session.pip.servicePath = self.servicelist.getCurrentServicePath()
-		if getMachineBuild() in ('dm7080', 'dm820', 'dm900'):
-			f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","r")
-			check=f.read()
-			f.close()
-			if check.startswith("off"):
-				f=open("/proc/stb/audio/hdmi_rx_monitor","w")
-				f.write("on")
-				f.close()
-				f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","w")
-				f.write("on")
-				f.close()
-			else:
-				f=open("/proc/stb/audio/hdmi_rx_monitor","w")
-				f.write("off")
-				f.close()
-				f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","w")
-				f.write("off")
-				f.close()
 		else:
 			curref = self.session.pip.getCurrentService()
 			if curref and curref.type != 8192:
@@ -4265,45 +4255,6 @@ class InfoBarHdmi:
 		if curref and curref.type != 8192:
 			self.hdmi_enabled_full = True
 			self.session.nav.playService(eServiceReference('8192:0:1:0:0:0:0:0:0:0:'))
-			+		if getMachineBuild() in ('dm7080', 'dm820', 'dm900'):
-			f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","r")
-			check=f.read()
-			f.close()
-			if check.startswith("off"):
-				f=open("/proc/stb/video/videomode","r")
-				self.oldvideomode=f.read()
-				f.close()
-				f=open("/proc/stb/video/videomode_50hz","r")
-				self.oldvideomode_50hz=f.read()
-				f.close()
-				f=open("/proc/stb/video/videomode_60hz","r")
-				self.oldvideomode_60hz=f.read()
-				f.close()
-				f=open("/proc/stb/video/videomode","w")
-				f.write("720p")
-				f.close()
-				f=open("/proc/stb/audio/hdmi_rx_monitor","w")
-				f.write("on")
-				f.close()
-				f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","w")
-				f.write("on")
-				f.close()
-			else:
-				f=open("/proc/stb/audio/hdmi_rx_monitor","w")
-				f.write("off")
-				f.close()
-				f=open("/proc/stb/hdmi-rx/0/hdmi_rx_monitor","w")
-				f.write("off")
-				f.close()
-				f=open("/proc/stb/video/videomode","w")
-				f.write(self.oldvideomode)
-				f.close()
-				f=open("/proc/stb/video/videomode_50hz","w")
-				f.write(self.oldvideomode_50hz)
-				f.close()
-				f=open("/proc/stb/video/videomode_60hz","w")
-				f.write(self.oldvideomode_60hz)
-				f.close()
 		else:
 			self.hdmi_enabled_full = False
 			self.session.nav.playService(slist.servicelist.getCurrent())
