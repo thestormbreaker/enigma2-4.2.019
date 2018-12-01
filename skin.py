@@ -11,7 +11,6 @@ from Tools.Directories import resolveFilename, SCOPE_SKIN, SCOPE_SKIN_IMAGE, SCO
 from Tools.Import import my_import
 from Tools.LoadPixmap import LoadPixmap
 from Components.RcModel import rc_model
-from boxbranding import getBoxType
 
 colorNames = {}
 switchPixmap = {}  # dict()
