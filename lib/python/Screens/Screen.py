@@ -143,6 +143,8 @@ class Screen(dict, GUISkin):
 			self.session.close(self, *retval)
 
 	def setFocus(self, o):
+		# Temporarily add to ease up identification of screens
+		print '[SCREENNAME] ',self.skinName
 		self.instance.setFocus(o.instance)
 
 	def show(self):
