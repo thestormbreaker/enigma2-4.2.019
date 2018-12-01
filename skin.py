@@ -95,7 +95,7 @@ if not fileExists(resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)):
 	DEFAULT_SKIN = "skin.xml"
 config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
 
-	DEFAULT_DISPLAY_SKIN = "skin_display.xml"
+DEFAULT_DISPLAY_SKIN = "skin_display.xml"
 config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
 
 profile("LoadSkin")
@@ -288,6 +288,7 @@ def collectAttributes(skinAttributes, node, context, skin_path_prefix=None, igno
 def morphRcImagePath(value):
 	if rc_model.rcIsDefault() is False:
 		if ('rc.png' or 'oldrc.png') in value:
+			value = rc_model.getRcLocation() + 'rc.png'
 	return value
 
 def loadPixmap(path, desktop):
