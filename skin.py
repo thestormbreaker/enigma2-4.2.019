@@ -127,12 +127,6 @@ except Exception, err:
 	skin = os.path.join('display', skin)
 	addSkin(skin)
 	del skin
-	
-# Add Skin for Display
-try:
-	addSkin(config.vfd.show.value)
-except:
-	addSkin('skin_text.xml')
 
 addSkin('skin_subtitles.xml')
 
