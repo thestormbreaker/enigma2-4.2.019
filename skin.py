@@ -11,6 +11,7 @@ from Tools.Directories import resolveFilename, SCOPE_SKIN, SCOPE_SKIN_IMAGE, SCO
 from Tools.Import import my_import
 from Tools.LoadPixmap import LoadPixmap
 from Components.RcModel import rc_model
+from boxbranding import getBoxtype
 
 colorNames = {}
 switchPixmap = {}  # dict()
@@ -95,7 +96,10 @@ if not fileExists(resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)):
 	DEFAULT_SKIN = "skin.xml"
 config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
 
-DEFAULT_DISPLAY_SKIN = "skin_display.xml"
+if SystemInfo["grautec"]:
+	DEFAULT_DISPLAY_SKIN = "skin_display_grautec.xml"
+else:
+	DEFAULT_DISPLAY_SKIN = "skin_display.xml"
 config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
 
 profile("LoadSkin")
@@ -111,6 +115,8 @@ addSkin('skin_box.xml')
 # add optional discrete second infobar
 addSkin('skin_second_infobar.xml')
 display_skin_id = 1
+if getBoxType().startswith('dm'):
+	display_skin_id = 2
 try:
 	if not addSkin(os.path.join('display', config.skin.display_skin.value)):
 		raise DisplaySkinError, "[Skin] display skin not found"
@@ -124,6 +130,12 @@ except Exception, err:
 	skin = os.path.join('display', skin)
 	addSkin(skin)
 	del skin
+	
+# Add Skin for Display
+try:
+	addSkin(config.vfd.show.value)
+except:
+	addSkin('skin_text.xml')
 
 addSkin('skin_subtitles.xml')
 
@@ -287,7 +299,9 @@ def collectAttributes(skinAttributes, node, context, skin_path_prefix=None, igno
 
 def morphRcImagePath(value):
 	if rc_model.rcIsDefault() is False:
-		if ('rc.png' or 'oldrc.png') in value:
+		if value == '/usr/share/enigma2/skin_default/rc.png' or value == '/usr/share/enigma2/skin_default/rcold.png':
+			value = rc_model.getRcLocation() + 'rc.png'
+		elif value == '/usr/share/enigma2/skin_default/rc0.png' or value == '/usr/share/enigma2/skin_default/rc1.png' or value == '/usr/share/enigma2/skin_default/rc2.png':
 			value = rc_model.getRcLocation() + 'rc.png'
 	return value
 
