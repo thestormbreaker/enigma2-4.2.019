@@ -112,8 +112,6 @@ addSkin('skin_box.xml')
 # add optional discrete second infobar
 addSkin('skin_second_infobar.xml')
 display_skin_id = 1
-if getBoxType().startswith('dm'):
-	display_skin_id = 2
 try:
 	if not addSkin(os.path.join('display', config.skin.display_skin.value)):
 		raise DisplaySkinError, "[Skin] display skin not found"
