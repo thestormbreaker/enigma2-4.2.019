@@ -1208,7 +1208,6 @@ void eDVBFrontend::calculateSignalQuality(int snr, int &signalquality, int &sign
 	else if (!strncmp(m_description, "Si216", 5)) // New models with SI tuners
 	{
 		ret = snr;
-		sat_max = 1620;
 	}
 
 	signalqualitydb = ret;
