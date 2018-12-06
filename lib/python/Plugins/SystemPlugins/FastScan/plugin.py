@@ -191,7 +191,6 @@ class FastScanScreen(ConfigListScreen, Screen):
 
 	def createSetup(self):
 		self.list = []
-		self.list.append(self.tunerEntry)
 		self.list.append(self.scanProvider)
 		if self.scan_provider.value:
 			self.list.append(self.tunerEntry)
