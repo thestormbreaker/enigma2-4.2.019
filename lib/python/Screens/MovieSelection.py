@@ -247,9 +247,9 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 
 		self.list = []
 		ConfigListScreen.__init__(self, self.list, session = self.session, on_change = self.changedEntry)
-		
+
 		self.createSetup()
-		
+
 		self["actions"] = ActionMap(["SetupActions", 'ColorActions'],
 		{
 			"red": self.cancel,
@@ -298,18 +298,18 @@ class MovieBrowserConfiguration(ConfigListScreen,Screen):
 			self.list.sort()
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
-		
+
 	def selectionChanged(self):
 		self["description"].setText(self.getCurrentDescription())
 
 	def keyLeft(self):
 		ConfigListScreen.keyLeft(self)
 		self.createSetup()
-		
- 	def keyRight(self):
+
+	def keyRight(self):
 		ConfigListScreen.keyRight(self)
 		self.createSetup()
-		
+
 	def save(self):
 		self.saveAll()
 		cfg = self.cfg
@@ -770,7 +770,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase, Pr
 				'copy': _("Copy"),
 				'reset': _("Reset"),
 				'tags': _("Tags"),
-				"createdir": _("Create directory"),				
+				"createdir": _("Create directory"),
 				'addbookmark': _("Add bookmark"),
 				'bookmarks': _("Location"),
 				'rename': _("Rename"),
@@ -1841,7 +1841,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase, Pr
 			dirname = info.getName(item[0])
 			full_name = os.path.split(item[0].getPath())[1]
 			if full_name == dirname: # split extensions for files without metafile
-				dirname, self.extension = os.path.splitext(name)		
+				dirname, self.extension = os.path.splitext(name)
 		self.session.openWithCallback(self.createDirCallback, VirtualKeyBoard,
 			title = _("Please enter the name of the new directory"),
 			text = dirname)
