@@ -344,24 +344,24 @@ class MovieList(GUIComponent):
 		self.invalidateItem(self.getCurrentIndex())
 
 	def buildMovieListEntry(self, serviceref, info, begin, data):
-		
-		showPicons = "picon" in config.usage.movielist_servicename_mode.value		
+
+		showPicons = "picon" in config.usage.movielist_servicename_mode.value
 		switch = config.usage.show_icons_in_movielist.value
 		piconWidth = config.usage.movielist_piconwidth.value if showPicons else 0
 		durationWidth = self.durationWidth if config.usage.load_length_of_movies_in_moviellist.value else 0
-		
+
 		width = self.l.getItemSize().width()
 		
 		dateWidth = self.dateWidth
 		if not config.movielist.use_fuzzy_dates.value:
 			dateWidth += 30
-			
+
 		iconSize = self.iconsWidth
 		if switch == 'p':
 			iconSize = self.pbarLargeWidth
 		ih = self.itemHeight
 		col0iconSize = piconWidth if showPicons else iconSize
-		
+
 		space = self.spaceIconeText
 		r = self.spaceRight
 		pathName = serviceref.getPath()
@@ -443,10 +443,10 @@ class MovieList(GUIComponent):
 			# icon/progress
 			if data:
 				if switch == 'i' and hasattr(data, 'icon') and data.icon is not None:
-					res.append(MultiContentEntryPixmapAlphaBlend(pos=(colX,self.partIconeShift), size=(iconSize,data.icon.size().height()), png=data.icon))					
+					res.append(MultiContentEntryPixmapAlphaBlend(pos=(colX,self.partIconeShift), size=(iconSize,data.icon.size().height()), png=data.icon))
 				elif switch in ('p', 's'):
 					if hasattr(data, 'part') and data.part > 0:
-						res.append(MultiContentEntryProgress(pos=(colX,self.pbarShift), size=(iconSize, self.pbarHeight), percent=data.part, borderWidth=2, foreColor=data.partcol, foreColorSelected=None, backColor=None, backColorSelected=None)
+						res.append(MultiContentEntryProgress(pos=(colX,self.pbarShift), size=(iconSize, self.pbarHeight), percent=data.part, borderWidth=2, foreColor=data.partcol, foreColorSelected=None, backColor=None, backColorSelected=None))
 					elif hasattr(data, 'icon') and data.icon is not None:
 						res.append(MultiContentEntryPixmapAlphaBlend(pos=(colX,self.pbarShift), size=(iconSize, self.pbarHeight), png=data.icon))
 			return iconSize
@@ -465,15 +465,15 @@ class MovieList(GUIComponent):
 					backcolor = None, backcolor_sel = None, flags = BT_SCALE | BT_KEEP_ASPECT_RATIO))
 			colX += piconWidth + space
 		else:
-			colX += addProgress() + space							   
-							   
+			colX += addProgress() + space
+
 		# Recording name
 		res.append(MultiContentEntryText(pos=(colX, 0), size=(width-iconSize-space-durationWidth-dateWidth-r-colX, ih), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = data.txt))
 		colX = width-iconSize-space-durationWidth-dateWidth-r
 
 		if piconWidth > 0:
-			colX += addProgress()							   
-							   
+			colX += addProgress()
+
 		# Duration - optionally active
 		if durationWidth > 0:
 			if data:
