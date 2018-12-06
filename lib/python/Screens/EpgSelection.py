@@ -458,10 +458,6 @@ class EPGSelection(Screen, HelpableScreen):
 			if self.StartBouquet.toString().startswith('1:7:0'):
 				self.BouquetRoot = True
 			self.services = self.getBouquetServices(self.StartBouquet)
-			if self.type == EPG_TYPE_GRAPH:
-				self['list'].setShowServiceMode(config.epgselection.graph_servicetitle_mode.value)
-			elif self.type == EPG_TYPE_INFOBARGRAPH:
-				self['list'].setShowServiceMode(config.epgselection.infobar_servicetitle_mode.value)
 			self['list'].fillGraphEPG(self.services, self.ask_time)
 			self['list'].moveToService(serviceref)
 			self['list'].setCurrentlyPlaying(serviceref)
@@ -609,7 +605,7 @@ class EPGSelection(Screen, HelpableScreen):
 			elif self.type == EPG_TYPE_INFOBARGRAPH:
 				self.ask_time = self.ask_time = now - now % (int(config.epgselection.infobar_roundto.value) * 60)
 			self['list'].resetOffset()
-			self['list'].setTimeFocus(time())			
+			self['list'].setTimeFocus(time())
 			self['list'].fillGraphEPG(self.services, self.ask_time)
 			self.moveTimeLines(True)
 		elif self.type == EPG_TYPE_MULTI:
