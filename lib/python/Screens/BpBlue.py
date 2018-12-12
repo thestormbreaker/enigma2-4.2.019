@@ -262,7 +262,7 @@ class BhsysInfo(Screen):
 	def updateInfo(self):
 		rc = system("df -h > /tmp/syinfo.tmp")
 		text = _("BOX\n") + _("Brand:") + "\tVuplus\n"
-		f = open("/proc/stb/info/vumodel",'r')
+		f = open("/proc/stb/info/model",'r')
  		text += _("Model:\t") + f.readline()
  		f.close()
 		f = open("/proc/stb/info/chipset",'r')
