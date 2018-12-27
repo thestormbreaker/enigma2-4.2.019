@@ -1,4 +1,5 @@
 from config import config, ConfigSelection, ConfigSubsection, ConfigOnOff, ConfigText
+from boxbranding import getBrandOEM, getMachineBrand
 from Components.Keyboard import keyboard
 
 def InitSetupDevices():
