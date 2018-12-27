@@ -65,9 +65,6 @@ def InitOsd():
 				f.write('%d' % int(configElement.value))
 				f.close()
 	config.osd.threeDznorm.addNotifier(set3DZnorm)
-	
-		if getBrandOEM() in ('dreambox'):
-		SystemInfo["CanChangeOsdPosition"] = True
 
 def InitOsdPosition():
 	SystemInfo["CanChangeOsdAlpha"] = access('/proc/stb/video/alpha', R_OK) and True or False
@@ -78,6 +75,13 @@ def InitOsdPosition():
 		SystemInfo["OsdMenu"] = True
 	else:
 		SystemInfo["OsdMenu"] = False
+		
+	if getBrandOEM() in ('fulan'):
+		SystemInfo["CanChangeOsdPosition"] = False
+		SystemInfo["CanChange3DOsd"] = False
+
+	if getBrandOEM() in ('dreambox'):
+		SystemInfo["CanChangeOsdPosition"] = True		
 	
 	def setOSDLeft(configElement):
 		if SystemInfo["CanChangeOsdPosition"]:
