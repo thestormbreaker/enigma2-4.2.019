@@ -1,5 +1,5 @@
 from os import path as os_path
-
+from boxbranding import getBoxType
 from Components.config import config, ConfigSubsection, ConfigSlider, ConfigSelection, ConfigBoolean, ConfigNothing, NoSave
 
 # The "VideoEnhancement" is the interface to /proc/stb/vmpeg/0.
