@@ -1,7 +1,7 @@
 from os import access, W_OK, R_OK
 
 from enigma import eEnv
-
+from boxbranding import getBoxType, getImageDistro
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Wizard import wizardManager
 from Screens.Rc import Rc
@@ -10,6 +10,8 @@ from Components.Pixmap import Pixmap
 from Components.config import config, ConfigSubsection, ConfigText, ConfigLocations, ConfigBoolean
 from Components.Harddisk import harddiskmanager
 
+boxtype = getBoxType()
+distro = getImageDistro()
 
 config.misc.firstrun = ConfigBoolean(default = True)
 config.plugins.configurationbackup = ConfigSubsection()
