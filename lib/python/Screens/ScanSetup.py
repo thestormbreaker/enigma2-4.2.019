@@ -11,6 +11,7 @@ from Components.Sources.StaticText import StaticText
 from Tools.HardwareInfo import HardwareInfo
 from Tools.Transponder import getChannelNumber, supportedChannels, channel2frequency
 from Screens.InfoBar import InfoBar
+from boxbranding import getMachineBrand
 from Screens.MessageBox import MessageBox
 from enigma import eTimer, eDVBFrontendParametersSatellite, eComponentScan, \
 	eDVBFrontendParametersTerrestrial, eDVBFrontendParametersCable, eConsoleAppContainer, \
