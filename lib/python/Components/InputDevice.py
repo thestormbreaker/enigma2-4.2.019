@@ -3,7 +3,7 @@ from SystemInfo import SystemInfo
 from fcntl import ioctl
 import os
 import struct
-from boxbranding import getBrandOEM
+from boxbranding import getBoxType, getBrandOEM
 import platform
 
 from Tools.Directories import pathExists
