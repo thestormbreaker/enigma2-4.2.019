@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from boxbranding import getMachineBuild, getMachineBrand, getMachineName
 import os, unicodedata
 from Tools.Profile import profile
 
