@@ -19,7 +19,7 @@ from enigma import eDVBCI_UI, eDVBCIInterfaces, eEnv, eServiceCenter
 from Tools.BoundFunction import boundFunction
 from Tools.CIHelper import cihelper
 from Tools.XMLTools import stringToXML
-
+from boxbranding import getMachineBrand, getMachineName
 import os
 
 class CIselectMainMenu(Screen):
